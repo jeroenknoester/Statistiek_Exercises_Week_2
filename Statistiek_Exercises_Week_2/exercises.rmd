@@ -1,0 +1,52 @@
+﻿---
+title: "Statistiek Exercises Week 2"
+author: "Jeroen Knoester"
+output: pdf_document
+---
+
+# Summary statistics## Exercise 1:a) Create a vector *x* with 98 random values between 1 and 30 (using the "sample" function).
+```{r}
+x <- sample(1:30, 98, replace = T)
+x
+```
+b) Create another vector, *x2*, by adding at the end of *x* two values: 50 and -5.
+```{r}
+x2 <- c(x, -5, 50)
+x2
+```
+c) Verify that the median of the two vectors is the same. Why does that happen?
+```{r}
+median(x) == median(x2)
+```
+The median of the 2 vectors is the same, because -5 is less than 16 and 50 is more than 16. The median in between stays the same.
+
+d) Compute the interquartile ranges of both vectors and use them to find out if there are any
+outliers in the two vectors.
+```{r}
+IQR(x)
+IQR(x2)
+# Check if there is any number in x that is higher then h or lower then l(the highest and lowest boundry)
+h <- mean(x) + IQR(x) * 1.5
+l <- mean(x) - IQR(x) * 1.5
+x[x > h]
+x[x < l]
+# Same for x2
+h2 <- mean(x2) + IQR(x2) * 1.5
+l2 <- mean(x2) - IQR(x2) * 1.5
+x2[x2 > h2]
+x2[x2 < l2]
+```
+e) Produce a plot containing the two boxplots (together in the same plot) of *x* and *x2*. Can you
+see the outliers (if there were any) identified in step d)?
+```{r}
+boxplot(x, x2)
+# Shows the outliner +50 but not the outliner -5
+```
+
+f) Compute the standard deviations of both vectors. Which one is smaller and why?
+```{r}
+sd(x)
+sd(x2)
+```
+
+The standard deviation of *x* is smaller then the sd of *x2*. A low standard deviation is closer to 0. Since *x2* has outliners, this has a higher standard deviation.
