@@ -4,7 +4,9 @@ author: "Jeroen Knoester"
 output: pdf_document
 ---
 
-# Summary statistics## Exercise 1:a) Create a vector *x* with 98 random values between 1 and 30 (using the "sample" function).
+# Summary statistics
+## Exercise 1:
+a) Create a vector *x* with 98 random values between 1 and 30 (using the "sample" function).
 ```{r}
 x <- sample(1:30, 98, replace = T)
 x
@@ -50,3 +52,49 @@ sd(x2)
 ```
 
 The standard deviation of *x* is smaller then the sd of *x2*. A low standard deviation is closer to 0. Since *x2* has outliners, this has a higher standard deviation.
+\newpage
+# Visualizations## Exercise 1Import the *eba*1977 dataset (from the ISwR package) into *R*. Study the type and content of its
+variables.
+
+a) Compute the mean of *cases* and produce a boxplot. Are there any outliers? What is the
+value of the third quartile?
+```{r}
+library(ISwR)
+attach(eba1977)
+mean(cases)
+boxplot(cases)
+
+casesSorted <- sort(cases)
+(casesSorted[18] + casesSorted[19])/2
+eba1977[cases > 17,]
+eba1977[cases< 1, ]
+```
+There are no outliers, and the value of the thirt quartile = 11
+b) Produce the summary of the whole dataset. How many values (rows of the dataset) for each
+age group were included in the dataset? How many values (rows of the dataset) for each
+city were included in the dataset?
+```{r}
+summary(eba1977)
+```
+Six rows for each city in the dataset.
+
+c) Produce two histograms: one with the number of cases in the city of Fredericia and one
+with the city of Vejle. Put the two histograms in the same plot. What can you say by
+comparing these two histograms?
+
+```{r}
+par(mfrow = c(1:2))
+hist(cases[city == "Fredericia"], main = "Fredericia")
+hist(cases[city == "Vejle"], main = "Vejle")
+```
+
+d) Using just one R command, put in a single plot the four boxplots representing the number of
+cases for each of the four cities. Do the same with the age groups.
+```{r}
+layout(1)
+boxplot(cases ~ city)
+boxplot(cases~age)
+```
+e) With just one R command, compute the average of cases for each of the four cities. Do the
+same with the ages (i.e., compute the average for each of the age groups). Which is the city
+with the highest average? Which is the age group with the highest average?```{r}tapply(cases, city, FUN = mean)tapply(cases, age, FUN = mean)```Fredericia has the highest average cases of the 4 cities, the ages between 65-69 has most average cases

@@ -28,3 +28,16 @@ boxplot(x, x2)
 # show the standard deviation of both variables
 sd(x)
 sd(x2)
+
+library(ISwR)
+attach(eba1977)
+summary(eba1977)
+mean(cases)
+median(cases)
+length(cases)
+boxplot(cases, main="hello")
+boxplot(cases ~ city)
+
+# With just one R command, compute the average of cases for each of the four cities.
+tapply(cases, city, FUN = mean)
+tapply(cases, age, FUN = mean)
